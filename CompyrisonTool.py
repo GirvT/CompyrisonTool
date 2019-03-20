@@ -51,10 +51,7 @@ def Same(dataINframes, dataINlist):
 def Different(dataINframes, sameEntries):
     dataOUTframes = list()
     for indx in range(0, len(dataINframes)):
-        #remove all dupes
-        dataOUTframes.append(concat([dataINframes[indx], sameEntries[indx]]).drop_duplicates())
-        #keep dupes in diff
-        #dataOUTframes.append(dataINframes[indx].merge(sameEntries[indx],indicator = True, how='left').loc[lambda x : x['_merge']!='both'])
+        dataOUTframes.append((dataINframes[indx].merge(sameEntries[indx],indicator = True, how='left').loc[lambda x : x['_merge']!='both']).drop_duplicates())
     return dataOUTframes
 
 window = Window('CompyrisonTool').Layout(layout1)
